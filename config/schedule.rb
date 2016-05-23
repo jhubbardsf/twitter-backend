@@ -18,3 +18,10 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+every 10.minutes do
+  rake 'twitter:retrieve'
+  if Tweet.count > 30
+    rake 'twitter:delete'
+  end
+end
