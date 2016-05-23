@@ -21,7 +21,5 @@
 
 every 10.minutes do
   rake 'twitter:retrieve'
-  if Tweet.count > 30
-    rake 'twitter:delete'
-  end
+  rake 'twitter:delete'
 end
