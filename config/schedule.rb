@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every :hour do
-  rake 'twitter:retrieve'
-  rake 'twitter:delete'
+every  do
+  rake 'twitter:retrieve', :environment => 'development'
+  rake 'twitter:delete', :environment => 'development'
 end
