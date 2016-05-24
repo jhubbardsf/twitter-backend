@@ -59,3 +59,13 @@
 #     auth_methods: %w(publickey password)
 #     # password: 'please use keys'
 #   }
+
+role :app, %w{107.170.47.11}
+role :web, %w{107.170.47.11}
+role :db,  %w{107.170.47.11}
+server '107.170.47.11', user: 'deploy', roles: %w{web app}
+set :ssh_options, {
+    keys: %w(~/.ssh/id_rsa),
+    forward_agent: true,
+    auth_methods: %w(publickey)
+}

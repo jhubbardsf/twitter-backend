@@ -22,6 +22,14 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
+set :default_env, {
+    'PATH' => '/home/USER/.rvm/gems/ruby-2.3.1/bin:/home/USER/.rvm/bin:$PATH',
+    'RUBY_VERSION' => 'ruby-2.3.1',
+    'GEM_HOME'     => '/home/USER/.rvm/gems/ruby-2.3.1',
+    'GEM_PATH'     => '/home/USER/.rvm/gems/ruby-2.3.1',
+    'BUNDLE_PATH'  => '/home/USER/.rvm/gems/ruby-2.3.1'
+}
+
 ## Defaults:
 # set :scm,           :git
 # set :branch,        :master
@@ -45,37 +53,20 @@ namespace :puma do
   before :start, :make_dirs
 end
 
+# Default value for keep_releases is 5
+set :keep_releases, 5
+
 namespace :deploy do
-  desc "Make sure local git is in sync with remote."
-  task :check_revision do
-    on roles(:app) do
-      unless `git rev-parse HEAD` == `git rev-parse origin/master`
-        puts "WARNING: HEAD is not the same as origin/master"
-        puts "Run `git push` to sync changes."
-        exit
+  task :install_dependencies do
+    on roles(:web), in: :sequence, wait: 5 do
+      within release_path do
+        execute :bundle, "--without development test"
       end
     end
   end
-
-  desc 'Initial Deploy'
-  task :initial do
-    on roles(:app) do
-      before 'deploy:restart', 'puma:start'
-      invoke 'deploy'
-    end
-  end
-
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      invoke 'puma:restart'
-    end
-  end
-
-  before :starting,     :check_revision
-  after  :finishing,    :compile_assets
-  after  :finishing,    :restart
+  after :published, :install_dependencies
 end
+
 
 # ps aux | grep puma    # Get puma pid
 # kill -s SIGUSR2 pid   # Restart puma
