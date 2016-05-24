@@ -1,11 +1,7 @@
-# config valid only for current version of Capistrano
-lock '3.5.0'
-
-# Change these
-server '107.170.87.119', port: 22, roles: [:web, :app, :db], primary: true
+server '107.170.49.113', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:jhubbardsf/twitter-backend.git'
-set :application,     'NurelmBack'
+set :application,     'NurelmFront'
 set :user,            'deploy'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
@@ -77,6 +73,7 @@ namespace :deploy do
   end
 
   before :starting,     :check_revision
+  after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
 end
