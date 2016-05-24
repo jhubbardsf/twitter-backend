@@ -23,7 +23,7 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
 set :default_env, {
-    'PATH' => '/home/USER/.rvm/gems/ruby-2.3.1/bin:/home/USER/.rvm/bin:$PATH',
+    'PATH' => '/home/deploy/.rvm/gems/ruby-2.3.1/bin:/home/deploy/.rvm/bin:$PATH',
     'RUBY_VERSION' => 'ruby-2.3.1',
     'GEM_HOME'     => '/home/USER/.rvm/gems/ruby-2.3.1',
     'GEM_PATH'     => '/home/USER/.rvm/gems/ruby-2.3.1',
