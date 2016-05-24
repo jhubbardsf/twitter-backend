@@ -1,7 +1,7 @@
 server '107.170.87.119', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:jhubbardsf/twitter-backend.git'
-set :application,     'NurelmFront'
+set :application,     'NurelmBack'
 set :user,            'deploy'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
