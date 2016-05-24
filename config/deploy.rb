@@ -1,4 +1,4 @@
-server '107.170.87.119', port: 22, roles: [:web, :app, :db], primary: true
+server '107.170.47.11', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:jhubbardsf/twitter-backend.git'
 set :application,     'NurelmBack'
