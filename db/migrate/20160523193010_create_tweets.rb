@@ -10,5 +10,7 @@ class CreateTweets < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+
+    add_index(:tweets, :topic)
   end
 end
