@@ -20,6 +20,6 @@
 # Learn more: http://github.com/javan/whenever
 
 every :hour do
-  rake 'twitter:retrieve', :environment => 'development'
-  rake 'twitter:delete', :environment => 'development'
+  rake 'twitter:retrieve', :environment => 'production'
+  rake 'twitter:delete', :environment => 'production'
 end
